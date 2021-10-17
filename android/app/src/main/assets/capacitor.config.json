@@ -1,5 +1,5 @@
 {
-	"appId": "lyontech.facturas",
+	"appId": "lyontech.ionic.facturas",
 	"appName": "facturas",
 	"webDir": "build",
 	"bundledWebRuntime": false

@@ -3,16 +3,18 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@capacitor/android": "3.2.5",
     "@capacitor/app": "1.0.3",
     "@capacitor/core": "3.2.4",
     "@capacitor/haptics": "1.1.0",
     "@capacitor/keyboard": "1.1.0",
     "@capacitor/status-bar": "1.0.3",
-    "@ionic-native/barcode-scanner": "^5.36.0",
     "@ionic-native/core": "^5.36.0",
+    "@ionic-native/file": "^5.36.0",
     "@ionic-native/qr-scanner": "^5.36.0",
     "@ionic/react": "^5.5.0",
     "@ionic/react-router": "^5.5.0",
+    "@reduxjs/toolkit": "^1.6.2",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.6.3",
@@ -22,9 +24,10 @@
     "@types/react-dom": "^16.9.10",
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
+    "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-qrscanner": "^3.0.1",
     "ionicons": "^5.4.0",
-    "phonegap-plugin-barcodescanner": "^8.1.0",
+    "jetifier": "^2.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.5",
@@ -51,7 +54,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:android": "ionic capacitor copy android",
+    "open:android": "ionic cap open android",
+    "build:android2": "npx cap copy & npx cap update"
   },
   "eslintConfig": {
     "extends": [
