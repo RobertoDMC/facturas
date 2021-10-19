@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package lyontech.facturas;
 
 import com.getcapacitor.BridgeActivity;
 

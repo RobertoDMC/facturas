@@ -1,21 +1,23 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonIcon, IonGrid, IonCol, IonRow, IonList, IonItem } from '@ionic/react';
 import { useSelector, useDispatch } from 'react-redux'
 import { scan, downloadOutline, trashOutline } from 'ionicons/icons';
-import './Home.css';
 import { Bill, BillsSlice } from '../interfaces';
 import { clearAllBills } from '../store/bills/billsSlice';
-import { File } from '@ionic-native/file';
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+import './Home.css';
+import BillItem from '../components/BillItem';
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
   const bills = useSelector((state: BillsSlice) => state.bills);
 
   const downloadBills = async () => {
-    console.log(File.externalApplicationStorageDirectory);
-    console.log(File.externalDataDirectory);
-    console.log(File.dataDirectory);
-    console.log(File.applicationDirectory);
-    const result = await File.writeFile(File.externalApplicationStorageDirectory, "myItem.txt", "text");
+    await Filesystem.writeFile({
+      path: 'secrets/text.txt',
+      data: "This is a test",
+      directory: Directory.Documents,
+      encoding: Encoding.UTF8,
+    });
   };
 
   const clearBills = () => {
@@ -23,24 +25,7 @@ const Home: React.FC = () => {
   };
 
   const renderBillItem = (bill: Bill) => {
-    return (
-      <IonItem>
-        <IonGrid>
-          <IonRow className="ion-align-items-center">
-            <IonCol size="1">
-              {Number(bill.n) + 1}
-            </IonCol>
-            <IonCol size="11">
-              <IonRow><IonCol>NIT: {bill.nit}</IonCol></IonRow>
-              <IonRow><IonCol>Nº Factura: {bill.billNumber}</IonCol></IonRow>
-              <IonRow><IonCol>Autorizacion: {bill.authorization}</IonCol></IonRow>
-              <IonRow><IonCol>Fecha: {bill.date}</IonCol></IonRow>
-              <IonRow><IonCol>Codigo de Control: {bill.controlCode}</IonCol></IonRow>
-            </IonCol>
-          </IonRow>
-        </IonGrid>
-      </IonItem>
-    );
+    return <BillItem bill={bill} />;
   };
 
   return (
