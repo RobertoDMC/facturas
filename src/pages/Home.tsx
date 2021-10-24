@@ -2,26 +2,30 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonIcon, IonGrid,
 import { useSelector, useDispatch } from 'react-redux'
 import { scan, downloadOutline, trashOutline } from 'ionicons/icons';
 import { Bill, BillsSlice } from '../interfaces';
-import { clearAllBills } from '../store/bills/billsSlice';
-import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
-import './Home.css';
+import { clearAllBills, exportBills } from '../store/bills/billsSlice';
+
 import BillItem from '../components/BillItem';
+import { createStorage, getItem } from '../services/storage';
+import './Home.css';
+import { useEffect } from 'react';
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
   const bills = useSelector((state: BillsSlice) => state.bills);
 
+  useEffect(() => {
+    createStorage();    
+  }, []);
+
   const downloadBills = async () => {
-    await Filesystem.writeFile({
-      path: 'secrets/text.txt',
-      data: "This is a test",
-      directory: Directory.Documents,
-      encoding: Encoding.UTF8,
-    });
+    dispatch(exportBills({}));
   };
 
   const clearBills = () => {
+  getItem('bills').then((data: any) => {
+    console.log(data);
     dispatch(clearAllBills({}));
+  });
   };
 
   const renderBillItem = (bill: Bill) => {
